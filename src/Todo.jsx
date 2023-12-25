@@ -1,31 +1,39 @@
 import { useState } from "react";
 import './styles.css';
 
-function Todo() {
+export const Todo = () => {
+  const [todoText, setTodoText] = useState("");
+  const [inCompleteTodos, setInCompleteTodos] = useState([])
+
+  const onChangeTodoText = (event) => {
+    setTodoText(event.target.value)
+  }
+
+  const onClickAdd = () => {
+    const newTodos = [...inCompleteTodos, todoText]
+    setInCompleteTodos(newTodos);
+    setTodoText("")
+  }
+
   return (
     <>
       <div class="input-area">
-        <input id="add-text" placeholder="TODOを入力" />
-        <button id="add-button">追加</button>
+        <input placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText}/>
+        <button onClick={onClickAdd}>追加</button>
       </div>
 
       <div class="incomplete-area">
         <p class="title">未完了のTODO</p>
         <ul id="incomplete-list">
-          <li>
-            <div className="list-row">
-              <p className="todo-item">TODOです</p>
-              <button>完了</button>
-              <button>削除</button>
-            </div>
-          </li>
-          <li>
-            <div className="list-row">
-              <p className="todo-item">TODOです</p>
-              <button>完了</button>
-              <button>削除</button>
-            </div>
-          </li>
+          {inCompleteTodos.map((todo) =>
+            <li key={todo}>
+              <div className="list-row">
+                <p className="todo-item">{todo}</p>
+                <button>完了</button>
+                <button>削除</button>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
 
