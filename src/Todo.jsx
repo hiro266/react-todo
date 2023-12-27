@@ -31,6 +31,16 @@ export const Todo = () => {
     newIncompleteTodos.splice(index, 1)
     setIncompleteTodos(newIncompleteTodos)
   }
+  
+  const onClickReturn = (index) => {
+    const newCompleteTodos = [...completeTodos]
+    const newIncompleteTodos = [...incompleteTodos, newCompleteTodos[index]]
+
+    newCompleteTodos.splice(index, 1)
+    
+    setcompleteTodos(newCompleteTodos)
+    setIncompleteTodos(newIncompleteTodos)
+  }
 
 
   return (
@@ -59,11 +69,11 @@ export const Todo = () => {
       <div class="complete-ares">
         <p class="title">完了のTODO</p>
         <ul id="complete-list">
-          {completeTodos.map((todo) =>
-            <li>
+          {completeTodos.map((todo, index) =>
+            <li key={todo}>
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
-                <button>戻す</button>
+                <button onClick={() => onClickReturn(index)}>戻す</button>
               </div>
             </li>
           )}
