@@ -26,6 +26,12 @@ export const Todo = () => {
     setcompleteTodos(newCompleteTodos)
   }
 
+  const onClickDelete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos]
+    newIncompleteTodos.splice(index, 1)
+    setIncompleteTodos(newIncompleteTodos)
+  }
+
 
   return (
     <>
@@ -43,7 +49,7 @@ export const Todo = () => {
                 <p className="todo-item">{todo}</p>
                 {/* ループの度にクリックしなくてもonClickCompleteが呼び出されてしまうので関数の処理の中で関数を実行するようにする */}
                 <button onClick={() => onClickComplete(index)}>完了</button>
-                <button>削除</button>
+                <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             </li>
           )}
