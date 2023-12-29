@@ -14,6 +14,7 @@ export const Todo = () => {
   };
 
   const onClickAdd = () => {
+    if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText]
     setIncompleteTodos(newTodos);
     setTodoText("")
@@ -45,6 +46,7 @@ export const Todo = () => {
     setIncompleteTodos(newIncompleteTodos)
   }
 
+  const isMaxLimitIncompleteTodos = incompleteTodos.length >= 5;
 
   return (
     <>
@@ -52,8 +54,9 @@ export const Todo = () => {
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={isMaxLimitIncompleteTodos}
       />
-
+      {isMaxLimitIncompleteTodos && <p style={{color: "red"}}>5つ以上のTODOは登録できません。</p>}
       <IncompleteTodo
         incompleteTodos={incompleteTodos}
         onClickComplete={onClickComplete}
